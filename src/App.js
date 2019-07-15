@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import List1 from './components/List1';
+import List2 from './components/List2';
 
-function App() {
+class  App extends Component {
+  state = {
+    posts: [
+      {id: 1, name: 'post 1', liked: false},
+      {id: 2, name: 'post 2', liked: false},
+      {id: 3, name: 'post 3', liked: false}
+    ]
+  }
+
+  handleLike = (id) => {
+    const posts = [...this.state.posts];
+    let post = posts.find(item => item.id === id);
+    post.liked = !post.liked;
+    this.setState({posts});
+  }
+  
+ render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+     <List1 posts={this.state.posts} handleLike={this.handleLike}/>
+     <List2 posts={this.state.posts} handleLike={this.handleLike}/>
     </div>
   );
+ }
 }
 
 export default App;
